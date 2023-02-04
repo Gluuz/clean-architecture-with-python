@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, Engine
 
 class DBConnectionHandler:
     def __init__(self):
-        self.__connection_string = "sqlite://storage.db"
+        self.__connection_string = "sqlite:///storage.db"
         self.session = None
 
     def get_engine_to_database(self) -> Engine:
