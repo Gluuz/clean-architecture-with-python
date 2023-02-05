@@ -1,7 +1,7 @@
 from faker import Faker
 
 from src.infra.config.db_config import DBConnectionHandler
-from src.infra.entities.user import User
+from src.infra.entities.usermodel import UserModel
 from src.infra.repository.user_repository import UserRepository
 
 faker = Faker()
@@ -31,7 +31,7 @@ def test_should_select_user_by_id_and_compare_it():
     name = faker.name()
     password = faker.word()
 
-    fake_user = User(id=user_id, name=name, password=password)
+    fake_user = UserModel(id=user_id, name=name, password=password)
 
     engine = db_connection_handler.get_engine_to_database()
     engine.execute(
@@ -50,7 +50,7 @@ def test_should_select_user_by_name_and_compare_it():
     name = faker.name()
     password = faker.word()
 
-    fake_user = User(id=user_id, name=name, password=password)
+    fake_user = UserModel(id=user_id, name=name, password=password)
 
     engine = db_connection_handler.get_engine_to_database()
     engine.execute(

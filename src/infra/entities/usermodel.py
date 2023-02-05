@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from src.infra.config.db_base import Base
 
 
-class User(Base):
+class UserModel(Base):
 
     __tablename__ = "users"
 
@@ -14,7 +14,7 @@ class User(Base):
     id_pet = relationship("Pets")
 
     def __rep__(self):
-        return f"User {self.name}"
+        return f"UserModel {self.name}"
 
     def __eq__(self, other):
         if (
