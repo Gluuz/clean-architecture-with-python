@@ -10,8 +10,7 @@ class AnimalSpecies(Enum):
     turtle = "turtle"
 
 
-class Pets(Base):
-
+class PetModel(Base):
     __tablename__ = "pets"
 
     id = Column(Integer, primary_key=True)
@@ -24,3 +23,14 @@ class Pets(Base):
         return (
             f"Pet: [name={self.name}], Specie: [{self.specie}], Owner: [{self.user_id}]"
         )
+
+    def __eq__(self, other):
+        if (
+            self.id == other.id
+            and self.name == other.name
+            and self.specie == other.specie
+            and self.age == other.age
+            and self.user_id == other.user_id
+        ):
+            return True
+        return False
