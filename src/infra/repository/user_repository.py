@@ -20,3 +20,27 @@ class UserRepository:
                 raise
             finally:
                 db_connection.session.close()
+
+    @classmethod
+    def select_user_by_id(cls, user_id: int = None) -> list[User]:
+        try:
+            with DBConnectionHandler() as db_connection:
+                user = db_connection.session.query(User).filter_by(id=user_id).one()
+                return user
+        except Exception as ex:
+            db_connection.session.rollback()
+            raise ex
+        finally:
+            db_connection.session.close()
+
+    @classmethod
+    def select_user_by_name(cls, user_name: str = None) -> list[User]:
+        try:
+            with DBConnectionHandler() as db_connection:
+                user = db_connection.session.query(User).filter_by(name=user_name).one()
+                return user
+        except Exception as ex:
+            db_connection.session.rollback()
+            raise ex
+        finally:
+            db_connection.session.close()

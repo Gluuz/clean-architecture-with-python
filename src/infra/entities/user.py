@@ -15,3 +15,12 @@ class User(Base):
 
     def __rep__(self):
         return f"User {self.name}"
+
+    def __eq__(self, other):
+        if (
+            self.id == other.id
+            and self.name == other.name
+            and self.password == other.password
+        ):
+            return True
+        return False
