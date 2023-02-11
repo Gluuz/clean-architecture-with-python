@@ -1,9 +1,10 @@
+from src.data.interfaces.pet_repository_interface import PetRepositoryInterface
 from src.domain.models.pets import PetTuple
 from src.infra.config.db_config import DBConnectionHandler
 from src.infra.entities.petmodel import PetModel
 
 
-class PetRepository:
+class PetRepository(PetRepositoryInterface):
     @classmethod
     def insert_pet(cls, name: str, specie: str, age: int, user_id: int) -> PetTuple:
         with DBConnectionHandler() as db_connection:
@@ -24,13 +25,13 @@ class PetRepository:
                 db_connection.session.close()
 
     @classmethod
-    def select_pet_by_id(cls, pet_id: int = None) -> list[PetTuple]:
+    def select_pet_by_id(cls, pet_id: int = None) -> PetTuple:
         try:
             with DBConnectionHandler() as db_connection:
-                pet = (
+                selected_pet = (
                     db_connection.session.query(PetModel).filter_by(pet_id=pet_id).one()
                 )
-                return [pet]
+                return selected_pet
         except Exception as ex:
             db_connection.session.rollback()
             raise ex
@@ -41,12 +42,12 @@ class PetRepository:
     def select_pet_by_user_id(cls, user_id: str = None) -> list[PetTuple]:
         try:
             with DBConnectionHandler() as db_connection:
-                pet = (
+                selected_pets = (
                     db_connection.session.query(PetModel)
                     .filter_by(user_id=user_id)
                     .all()
                 )
-                return [pet]
+                return [selected_pets]
         except Exception as ex:
             db_connection.session.rollback()
             raise ex
