@@ -1,9 +1,10 @@
+from src.data.interfaces.user_repository_interface import UserRepositoryInterface
 from src.domain.models.users import UserTuple
 from src.infra.config.db_config import DBConnectionHandler
 from src.infra.entities.usermodel import UserModel
 
 
-class UserRepository:
+class UserRepository(UserRepositoryInterface):
     @classmethod
     def insert_user(cls, name: str, password: str) -> UserModel:
         with DBConnectionHandler() as db_connection:
