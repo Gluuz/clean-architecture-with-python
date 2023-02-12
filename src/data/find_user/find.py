@@ -20,7 +20,7 @@ class FindUser(FindUserInterface):
 
     def by_name(self, name: str) -> dict[bool, list[UserTuple]]:
         user = None
-        validate_entry = isinstance(name, int)
+        validate_entry = isinstance(name, str)
 
         if validate_entry:
             user = self.user_repository.select_user_by_name(name=name)
